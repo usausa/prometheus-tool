@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/Service/" Id="eca02313-5b5f-4c0c-bd16-a215c7923fd1">
+    <Project Path="PrometheusMonitor.Divoom/PrometheusMonitor.Divoom.csproj" Id="95961a18-5bb5-4952-b784-b263a34011f0" />
+    <Project Path="PrometheusMonitor.TuringSmartScreen/PrometheusMonitor.TuringSmartScreen.csproj" Id="de58a283-e822-48d7-9c6f-43edd5a1de51" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="Analyzers.ruleset" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="LICENSE" />
+    <File Path="PrometheusTool.sln.DotSettings" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Work/" Id="ddb4ef12-cc4e-5e88-e6fc-71a802f4de97">
+    <Project Path="WorkPrometheusQuery/WorkPrometheusQuery.csproj" />
+  </Folder>
+</Solution>

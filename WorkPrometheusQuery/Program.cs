@@ -28,7 +28,7 @@ internal static class Program
 
     private static async Task GetLatestMetrics(string query, string label = "name")
     {
-        string url = PrometheusUrl + Uri.EscapeDataString(query);
+        var url = new Uri(PrometheusUrl + Uri.EscapeDataString(query));
         var response = await Client.GetAsync(url);
 
         if (!response.IsSuccessStatusCode)
@@ -60,4 +60,3 @@ internal static class Program
         }
     }
 }
-
