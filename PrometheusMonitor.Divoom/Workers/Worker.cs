@@ -8,18 +8,14 @@ internal class Worker : BackgroundService
 {
     private readonly ILogger<Worker> log;
 
-    private readonly PrometheusSetting prometheusSetting;
-
-    private readonly DivoomSetting divoomSetting;
+    private readonly Setting setting;
 
     public Worker(
         ILogger<Worker> log,
-        IOptions<PrometheusSetting> prometheusSetting,
-        IOptions<DivoomSetting> divoomSetting)
+        IOptions<Setting> setting)
     {
         this.log = log;
-        this.prometheusSetting = prometheusSetting.Value;
-        this.divoomSetting = divoomSetting.Value;
+        this.setting = setting.Value;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -27,7 +23,7 @@ internal class Worker : BackgroundService
         // TODO
         while (!stoppingToken.IsCancellationRequested)
         {
-            await Task.Delay(1000, stoppingToken);
+            await Task.Delay(setting.Interval, stoppingToken);
         }
     }
 }

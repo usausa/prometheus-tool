@@ -24,8 +24,7 @@ builder.Services.AddSerilog(options =>
 });
 
 // Setting
-builder.Services.Configure<PrometheusSetting>(builder.Configuration.GetSection("Prometheus"));
-builder.Services.Configure<ScreenSetting>(builder.Configuration.GetSection("Screen"));
+builder.Services.Configure<Setting>(builder.Configuration.GetSection("Monitor"));
 
 // Worker
 builder.Services.AddHostedService<Worker>();

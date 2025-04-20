@@ -24,8 +24,7 @@ builder.Services.AddSerilog(options =>
 });
 
 // Setting
-builder.Services.Configure<PrometheusSetting>(builder.Configuration.GetSection("Prometheus"));
-builder.Services.Configure<DivoomSetting>(builder.Configuration.GetSection("Divoom"));
+builder.Services.Configure<Setting>(builder.Configuration.GetSection("Monitor"));
 
 // Worker
 builder.Services.AddHostedService<Worker>();
