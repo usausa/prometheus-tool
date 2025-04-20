@@ -2,12 +2,38 @@ using System.Runtime.InteropServices;
 using System.Runtime;
 
 using PrometheusMonitor.TuringSmartScreen;
+using PrometheusMonitor.TuringSmartScreen.Settings;
+using PrometheusMonitor.TuringSmartScreen.Workers;
+
+using Serilog;
+
+Directory.SetCurrentDirectory(AppContext.BaseDirectory);
 
 var builder = Host.CreateApplicationBuilder(args);
+
+// Service
+builder.Services
+    .AddWindowsService()
+    .AddSystemd();
+
+// Logging
+builder.Logging.ClearProviders();
+builder.Services.AddSerilog(options =>
+{
+    options.ReadFrom.Configuration(builder.Configuration);
+});
+
+// Setting
+builder.Services.Configure<PrometheusSetting>(builder.Configuration.GetSection("Prometheus"));
+builder.Services.Configure<ScreenSetting>(builder.Configuration.GetSection("Screen"));
+
+// Worker
 builder.Services.AddHostedService<Worker>();
 
+// Build
 var host = builder.Build();
 
+// Startup information
 var log = host.Services.GetRequiredService<ILogger<Program>>();
 ThreadPool.GetMinThreads(out var workerThreads, out var completionPortThreads);
 log.InfoStartup();
@@ -16,4 +42,5 @@ log.InfoStartupSettingsGC(GCSettings.IsServerGC, GCSettings.LatencyMode, GCSetti
 log.InfoStartupSettingsThreadPool(workerThreads, completionPortThreads);
 log.InfoStartupSettingsEnvironment(typeof(Program).Assembly.GetName().Version, Environment.CurrentDirectory);
 
-host.Run();
+// Run
+await host.RunAsync();
