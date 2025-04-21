@@ -14,7 +14,4 @@
     <File Path="PrometheusTool.sln.DotSettings" />
     <File Path="README.md" />
   </Folder>
-  <Folder Name="/Work/" Id="ddb4ef12-cc4e-5e88-e6fc-71a802f4de97">
-    <Project Path="WorkPrometheusQuery/WorkPrometheusQuery.csproj" />
-  </Folder>
 </Solution>
