@@ -2,7 +2,7 @@
 
 ## PrometheusMonitor.Divoom
 
-![divoom](https://github.com/usausa/prometheus-tool/blob/main/Document/divoom.jpg)
+![divoom](https://github.com/usausa/prometheus-tool/blob/main/Document/divoom-timegate.jpg)
 
 ## PrometheusMonitor.TuringSmartScreen
 
