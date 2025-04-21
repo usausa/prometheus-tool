@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 
 using PrometheusMonitor.TuringSmartScreen.Settings;
 
-internal class Worker : BackgroundService
+internal sealed class Worker : BackgroundService
 {
     private readonly ILogger<Worker> log;
 

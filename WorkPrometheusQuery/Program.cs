@@ -16,6 +16,7 @@ internal static class Program
         await GetLatestMetrics("sensor_power");
         await GetLatestMetrics("hardware_cpu_power{name=~\"^(Package|CPU Package)$\"}");
         await GetLatestMetrics("hardware_cpu_temperature{name=~\"^(CPU Package|Core \\\\(Tctl/Tdie\\\\))$\"}");
+        await GetLatestMetrics("hardware_gpu_temperature{name=\"GPU Core\"}");
 
         await GetLatestMetrics("hardware_cpu_load{name=\"CPU Total\"}");
         await GetLatestMetrics("hardware_memory_load{type=\"physical\"}");
@@ -24,6 +25,7 @@ internal static class Program
 
         await GetLatestMetrics("smart_nvme_value{smart_id=\"temperature\"}", "drive");
         await GetLatestMetrics("smart_generic_value{smart_id=\"C2\"} % 256", "drive");
+        await GetLatestMetrics("topk(1, smart_nvme_value{smart_id=\"temperature\"}) by (host)", "drive");
     }
 
     private static async Task GetLatestMetrics(string query, string label = "name")
