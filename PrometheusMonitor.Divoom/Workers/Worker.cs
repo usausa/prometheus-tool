@@ -25,6 +25,8 @@ internal sealed class Worker : BackgroundService
 
     private readonly MonitorParameter[] parameters;
 
+    private readonly double[] valueBffer;
+
     public Worker(
         ILogger<Worker> log,
         IOptions<Setting> setting)
@@ -41,6 +43,7 @@ internal sealed class Worker : BackgroundService
         divoomClient = new DivoomClient(this.setting.DivoomHost);
 
         parameters = this.setting.Node.Select(static x => new MonitorParameter { Lcd = x.Index }).ToArray();
+        valueBffer = new double[parameters.Length];
     }
 
     public override void Dispose()
@@ -164,8 +167,7 @@ internal sealed class Worker : BackgroundService
 
     private async ValueTask UpdateMetricsAsync(IEnumerable<string> queries, string format, Action<MonitorParameter, string> setter)
     {
-        var values = ArrayPool<double>.Shared.Rent(setting.Node.Length);
-        values.AsSpan().Fill(double.MinValue);
+        valueBffer.AsSpan().Fill(double.MinValue);
 
         foreach (var query in queries)
         {
@@ -194,7 +196,7 @@ internal sealed class Worker : BackgroundService
                             if (host == node.Name)
                             {
                                 var metricValue = value[1]!.Value<double>();
-                                values[i] = Math.Max(values[i], metricValue);
+                                valueBffer[i] = Math.Max(valueBffer[i], metricValue);
                                 break;
                             }
                         }
@@ -205,13 +207,11 @@ internal sealed class Worker : BackgroundService
 
         for (var i = 0; i < setting.Node.Length; i++)
         {
-            var value = values[i];
+            var value = valueBffer[i];
             if (value > double.MinValue)
             {
                 setter(parameters[i], String.Format(CultureInfo.InvariantCulture, format, value));
             }
         }
-
-        ArrayPool<double>.Shared.Return(values);
     }
 }
