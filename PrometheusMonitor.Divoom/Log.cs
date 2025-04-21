@@ -24,6 +24,11 @@ internal static partial class Log
     [LoggerMessage(Level = LogLevel.Information, Message = "Environment: version=[{version}], directory=[{directory}]")]
     public static partial void InfoStartupSettingsEnvironment(this ILogger logger, Version? version, string directory);
 
+    // Warning
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "Divoom request failed. errorCode=[{errorCode}], errorMessage=[{errorMessage}]")]
+    public static partial void WarnDivoomRequestFailed(this ILogger logger, int errorCode, string? errorMessage);
+
     // Error
 
     [LoggerMessage(Level = LogLevel.Error, Message = "Unknown exception.")]

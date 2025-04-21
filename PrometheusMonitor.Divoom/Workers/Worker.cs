@@ -98,7 +98,7 @@ internal sealed class Worker : BackgroundService
                 var result = await divoomClient.SelectClockIdAsync(625, setting.LcdId, node.Index);
                 if ((result.ErrorCode != 0) || !String.IsNullOrEmpty(result.ErrorMessage))
                 {
-                    log.LogWarning("TODO");
+                    log.WarnDivoomRequestFailed(result.ErrorCode, result.ErrorMessage);
                     return false;
                 }
             }
@@ -122,10 +122,9 @@ internal sealed class Worker : BackgroundService
             var result = await divoomClient.UpdatePcMonitorAsync(parameters);
             if ((result.ErrorCode != 0) || !String.IsNullOrEmpty(result.ErrorMessage))
             {
-                log.LogWarning("TODO");
+                log.WarnDivoomRequestFailed(result.ErrorCode, result.ErrorMessage);
+                return false;
             }
-
-            return true;
         }
         catch (Exception e)
         {
