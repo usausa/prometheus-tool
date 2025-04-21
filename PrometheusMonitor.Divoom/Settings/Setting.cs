@@ -31,7 +31,7 @@ internal sealed class Setting
 
     internal sealed class NodeEntry
     {
-        public string? Name { get; set; }
+        public string Name { get; set; } = default!;
 
         public int? Index { get; set; }
     }

@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <CodeAnalysisRuleSet>..\Analyzers.ruleset</CodeAnalysisRuleSet>
     <UserSecretsId>26c26acf-7412-4f6d-9b11-05ce5c4e1de6</UserSecretsId>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
