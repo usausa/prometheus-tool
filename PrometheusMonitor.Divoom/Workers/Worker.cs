@@ -1,6 +1,5 @@
 namespace PrometheusMonitor.Divoom.Workers;
 
-using System.Buffers;
 using System.Globalization;
 
 using global::Divoom.Client;
@@ -25,7 +24,7 @@ internal sealed class Worker : BackgroundService
 
     private readonly MonitorParameter[] parameters;
 
-    private readonly double[] valueBffer;
+    private readonly double[] valueBuffer;
 
     public Worker(
         ILogger<Worker> log,
@@ -43,7 +42,7 @@ internal sealed class Worker : BackgroundService
         divoomClient = new DivoomClient(this.setting.DivoomHost);
 
         parameters = this.setting.Node.Select(static x => new MonitorParameter { Lcd = x.Index }).ToArray();
-        valueBffer = new double[parameters.Length];
+        valueBuffer = new double[parameters.Length];
     }
 
     public override void Dispose()
@@ -93,6 +92,16 @@ internal sealed class Worker : BackgroundService
 #pragma warning disable CA1031
         try
         {
+            if (setting.LcdId.HasValue)
+            {
+                var result = await divoomClient.SetLcd5ChannelTypeAsync(Lcd5ChannelType.Independence, setting.LcdId.Value);
+                if ((result.ErrorCode != 0) || !String.IsNullOrEmpty(result.ErrorMessage))
+                {
+                    log.WarnDivoomRequestFailed(result.ErrorCode, result.ErrorMessage);
+                    return false;
+                }
+            }
+
             foreach (var node in setting.Node)
             {
                 var result = await divoomClient.SelectClockIdAsync(625, setting.LcdId, node.Index);
@@ -166,7 +175,7 @@ internal sealed class Worker : BackgroundService
 
     private async ValueTask UpdateMetricsAsync(IEnumerable<string> queries, string format, Action<MonitorParameter, string> setter)
     {
-        valueBffer.AsSpan().Fill(double.MinValue);
+        valueBuffer.AsSpan().Fill(double.MinValue);
 
         foreach (var query in queries)
         {
@@ -195,7 +204,7 @@ internal sealed class Worker : BackgroundService
                             if (host == node.Name)
                             {
                                 var metricValue = value[1]!.Value<double>();
-                                valueBffer[i] = Math.Max(valueBffer[i], metricValue);
+                                valueBuffer[i] = Math.Max(valueBuffer[i], metricValue);
                                 break;
                             }
                         }
@@ -206,7 +215,7 @@ internal sealed class Worker : BackgroundService
 
         for (var i = 0; i < setting.Node.Length; i++)
         {
-            var value = valueBffer[i];
+            var value = valueBuffer[i];
             if (value > double.MinValue)
             {
                 setter(parameters[i], String.Format(CultureInfo.InvariantCulture, format, value));

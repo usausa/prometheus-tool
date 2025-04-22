@@ -4,6 +4,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <CodeAnalysisRuleSet>..\Analyzers.ruleset</CodeAnalysisRuleSet>
     <UserSecretsId>b472fc06-1e2e-41df-9e9d-475dba403966</UserSecretsId>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup>
