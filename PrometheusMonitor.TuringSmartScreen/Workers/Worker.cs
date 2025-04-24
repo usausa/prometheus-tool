@@ -27,3 +27,14 @@ internal sealed class Worker : BackgroundService
         }
     }
 }
+
+internal sealed class NodeFactory
+{
+    // TODO
+}
+
+internal enum ScreenLayout
+{
+    Vertical,
+    Horizontal
+}
