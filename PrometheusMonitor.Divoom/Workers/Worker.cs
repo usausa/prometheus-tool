@@ -159,12 +159,12 @@ internal sealed class Worker : BackgroundService
 #pragma warning disable CA1031
         try
         {
-            await UpdateMetricsAsync(setting.Query.CpuUsed, "{0:F1}", static (p, v) => p.CpuUsed = v);
-            await UpdateMetricsAsync(setting.Query.GpuUsed, "{0:F1}", static (p, v) => p.GpuUsed = v);
-            await UpdateMetricsAsync(setting.Query.CpuTemperature, "{0:F1}", static (p, v) => p.CpuTemperature = v);
-            await UpdateMetricsAsync(setting.Query.GpuTemperature, "{0:F1}", static (p, v) => p.GpuTemperature = v);
-            await UpdateMetricsAsync(setting.Query.MemoryUsed, "{0:F0}", static (p, v) => p.MemoryUsed = v);
-            await UpdateMetricsAsync(setting.Query.DiskTemperature, "{0:F0}", static (p, v) => p.DiskTemperature = v);
+            await UpdateMetricsAsync(setting.Query.CpuUsed, setting.Format.CpuUsed, static (p, v) => p.CpuUsed = v);
+            await UpdateMetricsAsync(setting.Query.GpuUsed, setting.Format.GpuUsed, static (p, v) => p.GpuUsed = v);
+            await UpdateMetricsAsync(setting.Query.CpuTemperature, setting.Format.CpuTemperature, static (p, v) => p.CpuTemperature = v);
+            await UpdateMetricsAsync(setting.Query.GpuTemperature, setting.Format.GpuTemperature, static (p, v) => p.GpuTemperature = v);
+            await UpdateMetricsAsync(setting.Query.MemoryUsed, setting.Format.MemoryUsed, static (p, v) => p.MemoryUsed = v);
+            await UpdateMetricsAsync(setting.Query.DiskTemperature, setting.Format.DiskTemperature, static (p, v) => p.DiskTemperature = v);
         }
         catch (Exception e)
         {
@@ -195,7 +195,7 @@ internal sealed class Worker : BackgroundService
                     var metric = result["metric"]?.ToObject<Dictionary<string, object>>() ?? [];
                     var value = result["value"];
                     if ((value is JArray { Count: >= 2 }) &&
-                        metric.TryGetValue("host", out var h))
+                        metric.TryGetValue(setting.NodeKey, out var h))
                     {
                         var host = h.ToString();
                         for (var i = 0; i < setting.Node.Length; i++)

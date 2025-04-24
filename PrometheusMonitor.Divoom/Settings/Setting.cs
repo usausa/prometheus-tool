@@ -27,6 +27,23 @@ internal sealed class Setting
 
     public QueryEntry Query { get; set; } = default!;
 
+    internal sealed class FormatEntry
+    {
+        public string CpuUsed { get; set; } = "{0:F0} %";
+
+        public string GpuUsed { get; set; } = "{0:F0} %";
+
+        public string CpuTemperature { get; set; } = "{0:F0} C";
+
+        public string GpuTemperature { get; set; } = "{0:F0} C";
+
+        public string MemoryUsed { get; set; } = "{0:F0} %";
+
+        public string DiskTemperature { get; set; } = "{0:F0} C";
+    }
+
+    public FormatEntry Format { get; set; } = new();
+
     public string NodeKey { get; set; } = default!;
 
     internal sealed class NodeEntry
