@@ -12,15 +12,15 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.4.0</Version>
+    <Version>1.0.0</Version>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Authors>machi_pon</Authors>
-    <Copyright>Copyright (c) 2024 machi_pon</Copyright>
+    <Copyright>Copyright (c) 2025 machi_pon</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/usausa/prometheus-exporter-alternative</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/usausa/prometheus-tool</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
