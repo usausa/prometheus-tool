@@ -7,6 +7,7 @@
     <File Path=".editorconfig" />
     <File Path=".gitattributes" />
     <File Path=".gitignore" />
+    <File Path="AGENTS.md" />
     <File Path="Analyzers.ruleset" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Build.targets" />
@@ -14,4 +15,5 @@
     <File Path="PrometheusTool.sln.DotSettings" />
     <File Path="README.md" />
   </Folder>
+  <Project Path="WorkDesign/WorkDesign.csproj" Id="0315aa87-abe2-43e2-a10d-624d941da886" />
 </Solution>

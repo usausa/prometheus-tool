@@ -1,5 +1,5 @@
-using System.Runtime.InteropServices;
 using System.Runtime;
+using System.Runtime.InteropServices;
 
 using PrometheusMonitor.Divoom;
 using PrometheusMonitor.Divoom.Settings;

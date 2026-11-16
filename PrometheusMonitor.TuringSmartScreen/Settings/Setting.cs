@@ -7,18 +7,23 @@ internal sealed class QueryEntry
     public string Query { get; set; } = default!;
 }
 
-internal sealed class ThresholdScale
-{
-    public double Value { get; set; }
-
-    public string Color { get; set; } = default!;
-}
-
 internal sealed class ThresholdEntry
 {
-    public string Name { get; set; } = default!;
+    public string DefaultText { get; set; } = default!;
 
-    public ThresholdScale[] Scale { get; set; } = default!;
+    public string DefaultColor { get; set; } = default!;
+
+    public string WarningText { get; set; } = default!;
+
+    public string WarningColor { get; set; } = default!;
+
+    public string CriticalText { get; set; } = default!;
+
+    public string CriticalColor { get; set; } = default!;
+
+    public string LostText { get; set; } = default!;
+
+    public string LostColor { get; set; } = default!;
 }
 
 internal sealed class NodeEntry
@@ -30,14 +35,6 @@ internal sealed class NodeEntry
     public string NameKey { get; set; } = default!;
 
     public string Format { get; set; } = default!;
-
-    public string Color { get; set; } = default!;
-
-    public string Text { get; set; } = default!;
-
-    public string LostText { get; set; } = default!;
-
-    public string? Threshold { get; set; } = default!;
 }
 
 internal sealed class NodeEntryGroup
@@ -59,6 +56,8 @@ internal sealed class LayoutEntry
     public int Width { get; set; }
 
     public int Height { get; set; }
+
+    public int FontSize { get; set; }
 }
 
 internal sealed class Setting
@@ -73,7 +72,7 @@ internal sealed class Setting
 
     public LayoutEntry Layout { get; set; } = default!;
 
-    public ThresholdEntry[] Threshold { get; set; } = default!;
+    public ThresholdEntry Threshold { get; set; } = default!;
 
     public NodeEntryGroup[] Group { get; set; } = default!;
 }
